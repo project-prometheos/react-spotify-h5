@@ -3,6 +3,8 @@ lib/
 es/
 coverage/
 .vscode/
+dist/
+*.local
 
 # yarn
 .yarn/
