@@ -24,6 +24,8 @@ interface SpotifyCloneState {
   currentPlaylist: Playlist
   isPlaying: boolean
   volume: number
+  currentTime: number
+  duration: number
 }
 
 const sampleTracks: Track[] = [
@@ -116,13 +118,15 @@ const sidebarPlaylists = [
 ]
 
 class SpotifyClone extends Component<{}, SpotifyCloneState> {
-  audioRef = React.createRef<HTMLAudioElement>()
+  audioRef = React.createRef<any>()
 
   state: SpotifyCloneState = {
     currentTrackIndex: 0,
     currentPlaylist: playlists[0],
     isPlaying: false,
     volume: 0.8,
+    currentTime: 0,
+    duration: 0,
   }
 
   handleClickPrevious = (): void => {
@@ -147,7 +151,68 @@ class SpotifyClone extends Component<{}, SpotifyCloneState> {
     this.setState({
       currentPlaylist: playlists[playlistIndex],
       currentTrackIndex: 0,
+    }, () => {
+      // Auto-play when selecting a playlist
+      const audio = this.audioRef.current?.audio?.current
+      if (audio) {
+        audio.play()
+        this.setState({ isPlaying: true })
+      }
     })
+  }
+
+  handleTogglePlayPause = (): void => {
+    const audio = this.audioRef.current?.audio?.current
+    if (!audio) return
+
+    if (audio.paused) {
+      audio.play()
+      this.setState({ isPlaying: true })
+    } else {
+      audio.pause()
+      this.setState({ isPlaying: false })
+    }
+  }
+
+  handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    const newVolume = parseFloat(e.target.value)
+    const audio = this.audioRef.current?.audio?.current
+    if (audio) {
+      audio.volume = newVolume
+      this.setState({ volume: newVolume })
+    }
+  }
+
+  handleProgressChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    const newTime = parseFloat(e.target.value)
+    const audio = this.audioRef.current?.audio?.current
+    if (audio) {
+      audio.currentTime = newTime
+      this.setState({ currentTime: newTime })
+    }
+  }
+
+  handlePlay = (): void => {
+    this.setState({ isPlaying: true })
+  }
+
+  handlePause = (): void => {
+    this.setState({ isPlaying: false })
+  }
+
+  handleListen = (e: Event): void => {
+    const audio = e.target as HTMLAudioElement
+    this.setState({
+      currentTime: audio.currentTime,
+      duration: audio.duration || 0,
+    })
+  }
+
+  formatTime = (seconds: number): string => {
+    if (isNaN(seconds)) return '0:00'
+    const mins = Math.floor(seconds / 60)
+    const secs = Math.floor(seconds % 60)
+    return `${mins}:${secs.toString().padStart(2, '0')}`
   }
 
   render(): React.ReactNode {
@@ -398,10 +463,17 @@ class SpotifyClone extends Component<{}, SpotifyCloneState> {
                       <path d="M1.875 11.9167V2.58337" stroke="#99A1AF" strokeWidth="1.16667" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   </button>
-                  <button className="control-button play-pause">
-                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M3.15833 3.16665C3.15826 2.96137 3.21237 2.75971 3.31517 2.58202C3.41798 2.40434 3.56585 2.25693 3.74385 2.15468C3.92185 2.05242 4.12367 1.99894 4.32895 1.99964C4.53423 2.00034 4.73569 2.05519 4.91299 2.15865L11.9112 6.24081C12.0879 6.34329 12.2345 6.49033 12.3365 6.66723C12.4384 6.84413 12.4922 7.0447 12.4924 7.24889C12.4926 7.45308 12.4391 7.65375 12.3375 7.83082C12.2358 8.0079 12.0894 8.15519 11.913 8.25798L4.91299 12.3413C4.73569 12.4448 4.53423 12.4996 4.32895 12.5003C4.12367 12.501 3.92185 12.4475 3.74385 12.3453C3.56585 12.243 3.41798 12.0956 3.31517 11.9179C3.21237 11.7403 3.15826 11.5386 3.15833 11.3333V3.16665Z" stroke="black" strokeWidth="1.16667" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
+                  <button className="control-button play-pause" onClick={this.handleTogglePlayPause}>
+                    {this.state.isPlaying ? (
+                      <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5.25 3.16667V11.8333" stroke="black" strokeWidth="1.16667" strokeLinecap="round" strokeLinejoin="round"/>
+                        <path d="M9.75 3.16667V11.8333" stroke="black" strokeWidth="1.16667" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    ) : (
+                      <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3.15833 3.16665C3.15826 2.96137 3.21237 2.75971 3.31517 2.58202C3.41798 2.40434 3.56585 2.25693 3.74385 2.15468C3.92185 2.05242 4.12367 1.99894 4.32895 1.99964C4.53423 2.00034 4.73569 2.05519 4.91299 2.15865L11.9112 6.24081C12.0879 6.34329 12.2345 6.49033 12.3365 6.66723C12.4384 6.84413 12.4922 7.0447 12.4924 7.24889C12.4926 7.45308 12.4391 7.65375 12.3375 7.83082C12.2358 8.0079 12.0894 8.15519 11.913 8.25798L4.91299 12.3413C4.73569 12.4448 4.53423 12.4996 4.32895 12.5003C4.12367 12.501 3.92185 12.4475 3.74385 12.3453C3.56585 12.243 3.41798 12.0956 3.31517 11.9179C3.21237 11.7403 3.15826 11.5386 3.15833 11.3333V3.16665Z" stroke="black" strokeWidth="1.16667" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    )}
                   </button>
                   <button className="control-button next" onClick={this.handleClickNext}>
                     <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -419,12 +491,20 @@ class SpotifyClone extends Component<{}, SpotifyCloneState> {
                   </button>
                 </div>
                 <div className="progress-bar-container">
-                  <span className="time-display">0:00</span>
+                  <span className="time-display">{this.formatTime(this.state.currentTime)}</span>
                   <div className="progress-bar">
-                    <div className="progress-filled"></div>
-                    <div className="progress-handle"></div>
+                    <input
+                      type="range"
+                      min="0"
+                      max={this.state.duration || 0}
+                      value={this.state.currentTime}
+                      onChange={this.handleProgressChange}
+                      className="progress-input"
+                    />
+                    <div className="progress-filled" style={{ width: `${(this.state.currentTime / (this.state.duration || 1)) * 100}%` }}></div>
+                    <div className="progress-handle" style={{ left: `${(this.state.currentTime / (this.state.duration || 1)) * 100}%` }}></div>
                   </div>
-                  <span className="time-display">3:20</span>
+                  <span className="time-display">{this.formatTime(this.state.duration)}</span>
                 </div>
               </div>
 
@@ -438,8 +518,17 @@ class SpotifyClone extends Component<{}, SpotifyCloneState> {
                 </button>
                 <div className="volume-bar-wrapper">
                   <div className="volume-bar">
-                    <div className="volume-filled"></div>
-                    <div className="volume-handle"></div>
+                    <input
+                      type="range"
+                      min="0"
+                      max="1"
+                      step="0.01"
+                      value={this.state.volume}
+                      onChange={this.handleVolumeChange}
+                      className="volume-input"
+                    />
+                    <div className="volume-filled" style={{ width: `${this.state.volume * 100}%` }}></div>
+                    <div className="volume-handle" style={{ left: `${this.state.volume * 100}%` }}></div>
                   </div>
                 </div>
                 <button className="queue-button">
@@ -475,6 +564,10 @@ class SpotifyClone extends Component<{}, SpotifyCloneState> {
             onClickPrevious={this.handleClickPrevious}
             onClickNext={this.handleClickNext}
             onEnded={this.handleClickNext}
+            onPlay={this.handlePlay}
+            onPause={this.handlePause}
+            onListen={this.handleListen}
+            volume={this.state.volume}
           />
         </div>
       </div>
