@@ -13,6 +13,7 @@
     "build:d.ts": "tsc",
     "build:css": "sass --no-source-map src/styles.scss lib/styles.css",
     "build:less": "sass2less src/styles.scss lib/styles.less",
+    "start": "npm run storybook",
     "lint": "eslint src --fix --ext .ts,.tsx",
     "test": "jest",
     "test:watch": "jest --watch",
