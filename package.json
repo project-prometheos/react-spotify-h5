@@ -7,14 +7,15 @@
   "types": "./lib/index.d.ts",
   "scripts": {
     "dev": "vite",
-    "build": "run-p build:cjs build:d.ts build:es build:umd build:css build:less",
+  "build": "run-p build:cjs build:d.ts build:es build:umd build:css build:less build:vite",
     "build:cjs": "cross-env NODE_ENV=cjs babel src --out-dir lib --extensions .tsx,.ts",
     "build:es": "cross-env NODE_ENV=es babel src --out-dir es --extensions .tsx,.ts",
     "build:umd": "webpack",
     "build:d.ts": "tsc",
     "build:css": "sass --no-source-map src/styles.scss lib/styles.css",
     "build:less": "sass2less src/styles.scss lib/styles.less",
-    "preview": "vite preview",
+  "preview": "vite preview",
+  "build:vite": "vite build",
     "start": "npm run dev",
     "lint": "eslint src --fix --ext .ts,.tsx",
     "test": "jest",
@@ -79,6 +80,7 @@
     "@types/react-dom": "^19.1.7",
     "@typescript-eslint/eslint-plugin": "^7.18.0",
     "@typescript-eslint/parser": "^7.18.0",
+    "@vitejs/plugin-react": "^5.0.4",
     "babel-jest": "^29.7.0",
     "babel-loader": "^10.0.0",
     "cross-env": "^10",
@@ -106,7 +108,8 @@
     "style-loader": "^4.0.0",
     "typescript": "^5.4.0",
     "webpack": "^5",
-    "webpack-cli": "^4"
+    "webpack-cli": "^4",
+    "vite": "^7.1.9"
   },
   "engines": {
     "node": ">=18.0.0"
