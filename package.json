@@ -6,6 +6,7 @@
   "module": "./es/index.js",
   "types": "./lib/index.d.ts",
   "scripts": {
+    "dev": "vite",
     "build": "run-p build:cjs build:d.ts build:es build:umd build:css build:less",
     "build:cjs": "cross-env NODE_ENV=cjs babel src --out-dir lib --extensions .tsx,.ts",
     "build:es": "cross-env NODE_ENV=es babel src --out-dir es --extensions .tsx,.ts",
@@ -13,6 +14,8 @@
     "build:d.ts": "tsc",
     "build:css": "sass --no-source-map src/styles.scss lib/styles.css",
     "build:less": "sass2less src/styles.scss lib/styles.less",
+    "preview": "vite preview",
+    "start": "npm run dev",
     "lint": "eslint src --fix --ext .ts,.tsx",
     "test": "jest",
     "test:watch": "jest --watch",
