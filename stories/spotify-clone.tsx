@@ -56,46 +56,52 @@ const playlists: Playlist[] = [
     name: "Today's Top Hits",
     description: 'The most played songs on Spotify right now',
     tracks: sampleTracks,
+    image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtdXNpYyUyMGFydGlzdCUyMGJhbmQlMjBwZXJmb3JtYW5jZXxlbnwxfHx8fDE3NTk1MTQ1MjV8MA&ixlib=rb-4.1.0&q=80&w=400',
   },
   {
     id: 'rapcaviar',
     name: 'RapCaviar',
     description: 'New music and big tracks from hip hop',
     tracks: sampleTracks,
+    image: 'https://images.unsplash.com/photo-1631061434620-db65394197e2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb25jZXJ0JTIwbGl2ZSUyMG11c2ljJTIwc3RhZ2V8ZW58MXx8fHwxNzU5NTE0NTI5fDA&ixlib=rb-4.1.0&q=80&w=400',
   },
   {
     id: 'chill-hits',
     name: 'Chill Hits',
     description: 'Chill tracks for the perfect vibe',
     tracks: sampleTracks,
+    image: 'https://images.unsplash.com/photo-1652626627248-2f659cdbd6cc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwbGF5bGlzdCUyMGNvdmVyJTIwbXVzaWMlMjBtb29kfGVufDF8fHx8MTc1OTUxNDUzMnww&ixlib=rb-4.1.0&q=80&w=400',
   },
   {
     id: 'pop-rising',
     name: 'Pop Rising',
     description: 'The biggest songs in pop are right here',
     tracks: sampleTracks,
+    image: 'https://images.unsplash.com/photo-1629923759854-156b88c433aa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhbGJ1bSUyMGNvdmVyJTIwbXVzaWMlMjB2aW55bHxlbnwxfHx8fDE3NTk1MDk1NTZ8MA&ixlib=rb-4.1.0&q=80&w=400',
   },
   {
     id: 'rock-classics',
     name: 'Rock Classics',
     description: 'Rock legends & epic guitar solos',
     tracks: sampleTracks,
+    image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtdXNpYyUyMGFydGlzdCUyMGJhbmQlMjBwZXJmb3JtYW5jZXxlbnwxfHx8fDE3NTk1MTQ1MjV8MA&ixlib=rb-4.1.0&q=80&w=400',
   },
   {
     id: 'indie-mix',
     name: 'Indie Mix',
     description: 'The best indie tracks, updated weekly',
     tracks: sampleTracks,
+    image: 'https://images.unsplash.com/photo-1631061434620-db65394197e2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb25jZXJ0JTIwbGl2ZSUyMG11c2ljJTIwc3RhZ2V8ZW58MXx8fHwxNzU5NTE0NTI5fDA&ixlib=rb-4.1.0&q=80&w=400',
   },
 ]
 
 const quickPlayPlaylists = [
-  { name: "Today's Top Hits" },
-  { name: 'RapCaviar' },
-  { name: 'Chill Hits' },
-  { name: 'Pop Rising' },
-  { name: 'Rock Classics' },
-  { name: 'Indie Mix' },
+  { name: "Today's Top Hits", image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtdXNpYyUyMGFydGlzdCUyMGJhbmQlMjBwZXJmb3JtYW5jZXxlbnwxfHx8fDE3NTk1MTQ1MjV8MA&ixlib=rb-4.1.0&q=80&w=400' },
+  { name: 'RapCaviar', image: 'https://images.unsplash.com/photo-1631061434620-db65394197e2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb25jZXJ0JTIwbGl2ZSUyMG11c2ljJTIwc3RhZ2V8ZW58MXx8fHwxNzU5NTE0NTI5fDA&ixlib=rb-4.1.0&q=80&w=400' },
+  { name: 'Chill Hits', image: 'https://images.unsplash.com/photo-1652626627248-2f659cdbd6cc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwbGF5bGlzdCUyMGNvdmVyJTIwbXVzaWMlMjBtb29kfGVufDF8fHx8MTc1OTUxNDUzMnww&ixlib=rb-4.1.0&q=80&w=400' },
+  { name: 'Pop Rising', image: 'https://images.unsplash.com/photo-1629923759854-156b88c433aa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhbGJ1bSUyMGNvdmVyJTIwbXVzaWMlMjB2aW55bHxlbnwxfHx8fDE3NTk1MDk1NTZ8MA&ixlib=rb-4.1.0&q=80&w=400' },
+  { name: 'Rock Classics', image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtdXNpYyUyMGFydGlzdCUyMGJhbmQlMjBwZXJmb3JtYW5jZXxlbnwxfHx8fDE3NTk1MTQ1MjV8MA&ixlib=rb-4.1.0&q=80&w=400' },
+  { name: 'Indie Mix', image: 'https://images.unsplash.com/photo-1631061434620-db65394197e2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb25jZXJ0JTIwbGl2ZSUyMG11c2ljJTIwc3RhZ2V8ZW58MXx8fHwxNzU5NTE0NTI5fDA&ixlib=rb-4.1.0&q=80&w=400' },
 ]
 
 const sidebarPlaylists = [
@@ -282,7 +288,7 @@ class SpotifyClone extends Component<{}, SpotifyCloneState> {
                     className="quick-play-card"
                     onClick={() => this.handlePlayPlaylist(index)}
                   >
-                    <div className="quick-play-image"></div>
+                    <div className="quick-play-image" style={{ backgroundImage: `url(${playlist.image})` }}></div>
                     <h3 className="quick-play-title">{playlist.name}</h3>
                     <button className="play-button-green">
                       <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -304,7 +310,7 @@ class SpotifyClone extends Component<{}, SpotifyCloneState> {
                 {playlists.map((playlist, index) => (
                   <div key={playlist.id} className="playlist-card">
                     <div className="playlist-card-image-wrapper">
-                      <div className="playlist-card-image"></div>
+                      <div className="playlist-card-image" style={{ backgroundImage: `url(${playlist.image})` }}></div>
                       <button
                         className="play-button-overlay"
                         onClick={() => this.handlePlayPlaylist(index)}
@@ -333,7 +339,7 @@ class SpotifyClone extends Component<{}, SpotifyCloneState> {
                 {playlists.slice(0, 4).map((playlist, index) => (
                   <div key={playlist.id} className="playlist-card">
                     <div className="playlist-card-image-wrapper">
-                      <div className="playlist-card-image"></div>
+                      <div className="playlist-card-image" style={{ backgroundImage: `url(${playlist.image})` }}></div>
                       <button
                         className="play-button-overlay"
                         onClick={() => this.handlePlayPlaylist(index)}
@@ -357,7 +363,7 @@ class SpotifyClone extends Component<{}, SpotifyCloneState> {
           <div className="music-player-wrapper">
             <div className="music-player">
               <div className="player-track-info">
-                <div className="track-image"></div>
+                <div className="track-image" style={{ backgroundImage: `url(${currentPlaylist.image})` }}></div>
                 <div className="track-details">
                   <h4 className="track-name">{currentTrack.name}</h4>
                   <p className="track-artist">{currentTrack.artist}</p>
